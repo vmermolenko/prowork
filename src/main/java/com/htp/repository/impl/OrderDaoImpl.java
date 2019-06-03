@@ -33,6 +33,7 @@ public class OrderDaoImpl implements OrderDao {
     public static final String COUNT_WORKER = "count_worker";
     public static final String DATE_CREATE = "date_create";
     public static final String DATE_FROM_ORDER = "date_from_order";
+    public static final String DATE_TO_ORDER = "date_to_order";
     public static final String ID_WORKER_DATE_TO = "id_worker_date_to";
     public static final String STATUS = "status";
     public static final String PRIORITET = "prioritet";
@@ -57,6 +58,7 @@ public class OrderDaoImpl implements OrderDao {
         order.setCountWorker(resultSet.getLong(COUNT_WORKER));
         order.setDateCreate(resultSet.getTimestamp(DATE_CREATE));
         order.setDateFromOrder(resultSet.getTimestamp(DATE_FROM_ORDER));
+        order.setDateToOrder(resultSet.getTimestamp(DATE_TO_ORDER));
         order.setIdWorkerDateTo(resultSet.getLong(ID_WORKER_DATE_TO));
         order.setStatus(resultSet.getLong(STATUS));
         order.setPrioritet(resultSet.getLong(PRIORITET));
@@ -64,13 +66,13 @@ public class OrderDaoImpl implements OrderDao {
     }
     @Override
     public List<Order> findAll() {
-        final String findAllQuery = "select * from order";
+        final String findAllQuery = "select * from prowork.order";
         return namedParameterJdbcTemplate.query(findAllQuery, this::getOrderRowMapper);
     }
 
     @Override
     public Order findById(Long id) {
-        final String findById = "select * from order where id = :orderid";
+        final String findById = "select * from prowork.order where id = :orderid";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("orderid", id);
@@ -81,7 +83,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void delete(Long id) {
-        final String delete = "delete from order where id = :orderid";
+        final String delete = "delete from prowork.order where id = :orderid";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("orderid", id);
@@ -92,22 +94,24 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
     public Order save(Order entity) {
-        final String createQuery = "INSERT INTO prowork.order (type) VALUES (:gettype)";
+        final String createQuery = "INSERT INTO prowork.order (type, description, address, latitude, longtitude, id_client, count_worker, date_create, date_from_order, status, prioritet) " +
+                "VALUES (type = :type, description = :description, address = :address, latitude = :latitude, longtitude = :longtitude, id_client = :id_client, count_worker = :count_worker, date_create = :date_create, date_from_order = :date_from_order, status = :status, prioritet = :prioritet)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("gettype", entity.getType());
-        /*
+        params.addValue("type", entity.getType());
         params.addValue("description", entity.getDescription());
         params.addValue("address", entity.getAddress());
         params.addValue("latitude", entity.getLatitude());
         params.addValue("longtitude", entity.getLongtitude());
         params.addValue("id_client", entity.getIdClient());
         params.addValue("count_worker", entity.getCountWorker());
+        params.addValue("date_create", entity.getDateCreate());
+        params.addValue("date_from_order", entity.getDateFromOrder());
         params.addValue("status", entity.getStatus());
         params.addValue("prioritet", entity.getPrioritet());
-*/
+
         namedParameterJdbcTemplate.update(createQuery, params, keyHolder);
 
         long createdOrderId = Objects.requireNonNull(keyHolder.getKey()).longValue();
