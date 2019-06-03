@@ -35,36 +35,6 @@ public class OrderCreateRequest {
         this.prioritet = prioritet;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderCreateRequest that = (OrderCreateRequest) o;
-        return type == that.type &&
-                Double.compare(that.latitude, latitude) == 0 &&
-                Double.compare(that.longtitude, longtitude) == 0 &&
-                idClient == that.idClient &&
-                countWorker == that.countWorker &&
-                status == that.status &&
-                prioritet == that.prioritet &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(dateFromOrder, that.dateFromOrder);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, description, address, latitude, longtitude, idClient, countWorker, dateFromOrder, status, prioritet);
-    }
-
-    public String getDateFromOrder() {
-        return dateFromOrder;
-    }
-
-    public void setDateFromOrder(String dateFromOrder) {
-        this.dateFromOrder = dateFromOrder;
-    }
-
     public long getType() {
         return type;
     }
@@ -121,6 +91,14 @@ public class OrderCreateRequest {
         this.countWorker = countWorker;
     }
 
+    public String getDateFromOrder() {
+        return dateFromOrder;
+    }
+
+    public void setDateFromOrder(String dateFromOrder) {
+        this.dateFromOrder = dateFromOrder;
+    }
+
     public long getStatus() {
         return status;
     }
@@ -135,6 +113,28 @@ public class OrderCreateRequest {
 
     public void setPrioritet(long prioritet) {
         this.prioritet = prioritet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderCreateRequest that = (OrderCreateRequest) o;
+        return type == that.type &&
+                Double.compare(that.latitude, latitude) == 0 &&
+                Double.compare(that.longtitude, longtitude) == 0 &&
+                idClient == that.idClient &&
+                countWorker == that.countWorker &&
+                status == that.status &&
+                prioritet == that.prioritet &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(dateFromOrder, that.dateFromOrder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, description, address, latitude, longtitude, idClient, countWorker, dateFromOrder, status, prioritet);
     }
 
     @Override

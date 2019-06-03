@@ -2,6 +2,7 @@ package com.htp.repository.impl;
 
 import com.htp.domain.Order;
 import com.htp.repository.OrderDao;
+import com.htp.tools.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -72,7 +73,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order findById(Long id) {
-        final String findById = "select * from prowork.order where id = :orderid";
+        final String findById = "select * from prowork.order t where id = :orderid";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("orderid", id);
@@ -95,7 +96,7 @@ public class OrderDaoImpl implements OrderDao {
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT)
     public Order save(Order entity) {
         final String createQuery = "INSERT INTO prowork.order (type, description, address, latitude, longtitude, id_client, count_worker, date_create, date_from_order, status, prioritet) " +
-                "VALUES (type = :type, description = :description, address = :address, latitude = :latitude, longtitude = :longtitude, id_client = :id_client, count_worker = :count_worker, date_create = :date_create, date_from_order = :date_from_order, status = :status, prioritet = :prioritet)";
+                "VALUES (:type, :description, :address, :latitude, :longtitude, :idclient, :countworker, :datecreate, :datefromorder, :status, :prioritet)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
@@ -105,10 +106,10 @@ public class OrderDaoImpl implements OrderDao {
         params.addValue("address", entity.getAddress());
         params.addValue("latitude", entity.getLatitude());
         params.addValue("longtitude", entity.getLongtitude());
-        params.addValue("id_client", entity.getIdClient());
-        params.addValue("count_worker", entity.getCountWorker());
-        params.addValue("date_create", entity.getDateCreate());
-        params.addValue("date_from_order", entity.getDateFromOrder());
+        params.addValue("idclient", entity.getIdClient());
+        params.addValue("countworker", entity.getCountWorker());
+        params.addValue("datecreate", Util.convertTimestampToString(entity.getDateCreate()));
+        params.addValue("datefromorder", Util.convertTimestampToString(entity.getDateFromOrder()));
         params.addValue("status", entity.getStatus());
         params.addValue("prioritet", entity.getPrioritet());
 
@@ -121,7 +122,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order update(Order entity) {
-        final String createQuery = "UPDATE order SET type = :type, description = :description, address = :address, latitude = :latitude, longtitude = :longtitude, id_client = :id_client, id_worker = :id_worker, count_worker = :count_worker, date_create = :date_create, date_from_order = :date_from_order, id_worker_date_to = :id_worker_date_to, status = :status, prioritet = :prioritet where id = :id";
+        final String createQuery = "UPDATE prowork.order SET type = :type, description = :description, address = :address, latitude = :latitude, longtitude = :longtitude, id_client = :id_client, count_worker = :count_worker, date_from_order = :date_from_order, status = :status, prioritet = :prioritet where id = :id";
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", entity.getId());
@@ -131,11 +132,8 @@ public class OrderDaoImpl implements OrderDao {
         params.addValue("latitude", entity.getLatitude());
         params.addValue("longtitude", entity.getLongtitude());
         params.addValue("id_client", entity.getIdClient());
-        params.addValue("id_worker", entity.getIdWorker());
         params.addValue("count_worker", entity.getCountWorker());
-        params.addValue("date_create", entity.getDateCreate());
-        params.addValue("date_from_order", entity.getDateFromOrder());
-        params.addValue("id_worker_date_to", entity.getIdWorkerDateTo());
+        params.addValue("date_from_order", Util.convertTimestampToString(entity.getDateFromOrder()));
         params.addValue("status", entity.getStatus());
         params.addValue("prioritet", entity.getPrioritet());
 

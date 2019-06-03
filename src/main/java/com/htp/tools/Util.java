@@ -21,4 +21,18 @@ public class Util {
             return null;
         }
     }
+
+    public static String convertTimestampToString(Timestamp timestamp) {
+        try {
+            Timestamp ts = timestamp;
+            Date date = new Date();
+            date.setTime(ts.getTime());
+            String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+
+            return formattedDate;
+        } catch (Exception e) {
+            System.out.println("Exception :" + e);
+            return null;
+        }
+    }
 }
