@@ -4,21 +4,22 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "prowork.order")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class HibernateOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "type")
-    private long type;
+    private Long type;
 
     @Column(name = "description")
     private String description;
@@ -27,19 +28,19 @@ public class HibernateOrder {
     private String address;
 
     @Column(name = "latitude")
-    private double latitude;
+    private Double latitude;
 
     @Column(name = "longtitude")
-    private double longtitude;
+    private Double longtitude;
 
     @Column(name = "id_client")
-    private long idClient;
+    private Long idClient;
 
     @Column(name = "id_worker")
-    private long idWorker;
+    private Long idWorker;
 
-    @Column(name = "count_orker")
-    private long countWorker;
+    @Column(name = "count_worker")
+    private Long countWorker;
 
     @Column(name = "date_create")
     private java.sql.Timestamp dateCreate;
@@ -51,16 +52,18 @@ public class HibernateOrder {
     private java.sql.Timestamp dateToOrder;
 
     @Column(name = "id_worker_date_to")
-    private long idWorkerDateTo;
+    private Long idWorkerDateTo;
 
     @Column(name = "status")
-    private long status;
+    private Long status;
 
     @Column(name = "prioritet")
-    private long prioritet;
+    private Long prioritet;
 
-    public HibernateOrder(long id, long type, String description, String address, double latitude, double longtitude, long idClient, long idWorker, long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, long idWorkerDateTo, long status, long prioritet) {
-        this.id = id;
+    public HibernateOrder() {
+    }
+
+    public HibernateOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet) {
         this.type = type;
         this.description = description;
         this.address = address;
@@ -77,23 +80,21 @@ public class HibernateOrder {
         this.prioritet = prioritet;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-    public long getType() {
+    public Long getType() {
         return type;
     }
 
-    public void setType(long type) {
+    public void setType(Long type) {
         this.type = type;
     }
-
 
     public String getDescription() {
         return description;
@@ -103,7 +104,6 @@ public class HibernateOrder {
         this.description = description;
     }
 
-
     public String getAddress() {
         return address;
     }
@@ -112,128 +112,114 @@ public class HibernateOrder {
         this.address = address;
     }
 
-
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-
-    public double getLongtitude() {
+    public Double getLongtitude() {
         return longtitude;
     }
 
-    public void setLongtitude(double longtitude) {
+    public void setLongtitude(Double longtitude) {
         this.longtitude = longtitude;
     }
 
-
-    public long getIdClient() {
+    public Long getIdClient() {
         return idClient;
     }
 
-    public void setIdClient(long idClient) {
+    public void setIdClient(Long idClient) {
         this.idClient = idClient;
     }
 
-
-    public long getIdWorker() {
+    public Long getIdWorker() {
         return idWorker;
     }
 
-    public void setIdWorker(long idWorker) {
+    public void setIdWorker(Long idWorker) {
         this.idWorker = idWorker;
     }
 
-
-    public long getCountWorker() {
+    public Long getCountWorker() {
         return countWorker;
     }
 
-    public void setCountWorker(long countWorker) {
+    public void setCountWorker(Long countWorker) {
         this.countWorker = countWorker;
     }
 
-
-    public java.sql.Timestamp getDateCreate() {
+    public Timestamp getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(java.sql.Timestamp dateCreate) {
+    public void setDateCreate(Timestamp dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-
-    public java.sql.Timestamp getDateFromOrder() {
+    public Timestamp getDateFromOrder() {
         return dateFromOrder;
     }
 
-    public void setDateFromOrder(java.sql.Timestamp dateFromOrder) {
+    public void setDateFromOrder(Timestamp dateFromOrder) {
         this.dateFromOrder = dateFromOrder;
     }
 
-
-    public java.sql.Timestamp getDateToOrder() {
+    public Timestamp getDateToOrder() {
         return dateToOrder;
     }
 
-    public void setDateToOrder(java.sql.Timestamp dateToOrder) {
+    public void setDateToOrder(Timestamp dateToOrder) {
         this.dateToOrder = dateToOrder;
     }
 
-
-    public long getIdWorkerDateTo() {
+    public Long getIdWorkerDateTo() {
         return idWorkerDateTo;
     }
 
-    public void setIdWorkerDateTo(long idWorkerDateTo) {
+    public void setIdWorkerDateTo(Long idWorkerDateTo) {
         this.idWorkerDateTo = idWorkerDateTo;
     }
 
-
-    public long getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(long status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
-
-    public long getPrioritet() {
+    public Long getPrioritet() {
         return prioritet;
     }
 
-    public void setPrioritet(long prioritet) {
+    public void setPrioritet(Long prioritet) {
         this.prioritet = prioritet;
-    }
-
-    public HibernateOrder() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HibernateOrder orderHibernate = (HibernateOrder) o;
-        return id == orderHibernate.id &&
-                type == orderHibernate.type &&
-                Double.compare(orderHibernate.latitude, latitude) == 0 &&
-                Double.compare(orderHibernate.longtitude, longtitude) == 0 &&
-                idClient == orderHibernate.idClient &&
-                idWorker == orderHibernate.idWorker &&
-                countWorker == orderHibernate.countWorker &&
-                idWorkerDateTo == orderHibernate.idWorkerDateTo &&
-                status == orderHibernate.status &&
-                prioritet == orderHibernate.prioritet &&
-                Objects.equals(description, orderHibernate.description) &&
-                Objects.equals(address, orderHibernate.address) &&
-                Objects.equals(dateCreate, orderHibernate.dateCreate) &&
-                Objects.equals(dateFromOrder, orderHibernate.dateFromOrder) &&
-                Objects.equals(dateToOrder, orderHibernate.dateToOrder);
+        HibernateOrder that = (HibernateOrder) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(latitude, that.latitude) &&
+                Objects.equals(longtitude, that.longtitude) &&
+                Objects.equals(idClient, that.idClient) &&
+                Objects.equals(idWorker, that.idWorker) &&
+                Objects.equals(countWorker, that.countWorker) &&
+                Objects.equals(dateCreate, that.dateCreate) &&
+                Objects.equals(dateFromOrder, that.dateFromOrder) &&
+                Objects.equals(dateToOrder, that.dateToOrder) &&
+                Objects.equals(idWorkerDateTo, that.idWorkerDateTo) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(prioritet, that.prioritet);
     }
 
     @Override
@@ -243,7 +229,7 @@ public class HibernateOrder {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "HibernateOrder{" +
                 "id=" + id +
                 ", type=" + type +
                 ", description='" + description + '\'' +

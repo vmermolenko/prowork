@@ -30,8 +30,6 @@ public class ProworkController {
     @Qualifier("orderDaoImpl")
     private OrderDao orderDao;
 
-    @Autowired
-    private HibernateOrderIntarface hibernateOrderIntarface;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -87,7 +85,7 @@ public class ProworkController {
     })*/
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Order> updateUser(@PathVariable("id") Long orderId,
+    public ResponseEntity<Order> updateOrder(@PathVariable("id") Long orderId,
                                            @RequestBody OrderCreateRequest request) {
 
         Order order = orderDao.findById(orderId);
@@ -109,10 +107,11 @@ public class ProworkController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Long> deleteUser(@PathVariable("id") Long orderId) {
+    public ResponseEntity<Long> deleteOrder(@PathVariable("id") Long orderId) {
         orderDao.delete(orderId);
         return new ResponseEntity<>(orderId, HttpStatus.OK);
     }
+
 
 
 }
