@@ -1,6 +1,7 @@
 package com.htp.repository.impl;
 
 import com.htp.domain.Order;
+import com.htp.domain.hibernate.TestUser;
 import com.htp.repository.OrderDao;
 import com.htp.tools.Util;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,6 @@ package com.htp.domain.hibernate;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.htp.domain.Order;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "Order")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class OrderHibernate {
+public class HibernateOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +59,7 @@ public class OrderHibernate {
     @Column(name = "prioritet")
     private long prioritet;
 
-    public OrderHibernate(long id, long type, String description, String address, double latitude, double longtitude, long idClient, long idWorker, long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, long idWorkerDateTo, long status, long prioritet) {
+    public HibernateOrder(long id, long type, String description, String address, double latitude, double longtitude, long idClient, long idWorker, long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, long idWorkerDateTo, long status, long prioritet) {
         this.id = id;
         this.type = type;
         this.description = description;
@@ -212,14 +211,14 @@ public class OrderHibernate {
         this.prioritet = prioritet;
     }
 
-    public OrderHibernate() {
+    public HibernateOrder() {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderHibernate orderHibernate = (OrderHibernate) o;
+        HibernateOrder orderHibernate = (HibernateOrder) o;
         return id == orderHibernate.id &&
                 type == orderHibernate.type &&
                 Double.compare(orderHibernate.latitude, latitude) == 0 &&

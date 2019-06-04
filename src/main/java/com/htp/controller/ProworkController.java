@@ -5,7 +5,10 @@ import com.htp.controller.requests.OrderCreateRequest;
 import com.htp.controller.requests.UserCreateRequest;
 import com.htp.domain.Order;
 import com.htp.domain.User;
+import com.htp.domain.hibernate.HibernateOrder;
 import com.htp.repository.OrderDao;
+import com.htp.repository.hibernate.HibernateOrderDao;
+import com.htp.repository.hibernate.HibernateOrderIntarface;
 import com.htp.tools.Util;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class ProworkController {
     @Autowired
     @Qualifier("orderDaoImpl")
     private OrderDao orderDao;
+
+    @Autowired
+    private HibernateOrderIntarface hibernateOrderIntarface;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
