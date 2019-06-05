@@ -2,13 +2,8 @@ package com.htp.controller;
 
 
 import com.htp.controller.requests.OrderCreateRequest;
-import com.htp.controller.requests.UserCreateRequest;
 import com.htp.domain.Order;
-import com.htp.domain.User;
-import com.htp.domain.hibernate.HibernateOrder;
 import com.htp.repository.OrderDao;
-import com.htp.repository.hibernate.HibernateOrderDao;
-import com.htp.repository.hibernate.HibernateOrderIntarface;
 import com.htp.tools.Util;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +20,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/rest/order")
-public class ProworkController {
+public class JOrderController {
     @Autowired
     @Qualifier("orderDaoImpl")
     private OrderDao orderDao;

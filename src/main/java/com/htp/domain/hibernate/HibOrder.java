@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 @Table(name = "prowork.order")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class HibernateOrder {
+public class HibOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,10 +59,10 @@ public class HibernateOrder {
     @Column(name = "prioritet")
     private Long prioritet;
 
-    public HibernateOrder() {
+    public HibOrder() {
     }
 
-    public HibernateOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet) {
+    public HibOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet) {
         this.type = type;
         this.description = description;
         this.address = address;
@@ -204,7 +203,7 @@ public class HibernateOrder {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HibernateOrder that = (HibernateOrder) o;
+        HibOrder that = (HibOrder) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(type, that.type) &&
                 Objects.equals(description, that.description) &&
@@ -229,7 +228,7 @@ public class HibernateOrder {
 
     @Override
     public String toString() {
-        return "HibernateOrder{" +
+        return "HibOrder{" +
                 "id=" + id +
                 ", type=" + type +
                 ", description='" + description + '\'' +

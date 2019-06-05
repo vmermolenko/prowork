@@ -1,6 +1,6 @@
 package com.htp.repository.hibernate;
 
-import com.htp.domain.hibernate.HibernateOrder;
+import com.htp.domain.hibernate.HibOrder;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,16 +20,16 @@ public class HibernateOrderDao implements HibernateOrderIntarface {
 
 
     @Override
-    public List<HibernateOrder> findAll() {
+    public List<HibOrder> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("select tu from HibernateOrder tu", HibernateOrder.class).getResultList();
+            return session.createQuery("select tu from HibernateOrder tu", HibOrder.class).getResultList();
         }
     }
 
     @Override
-    public HibernateOrder findById(Long id) {
+    public HibOrder findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.find(HibernateOrder.class, id);
+            return session.find(HibOrder.class, id);
         }
     }
 
@@ -47,24 +47,24 @@ public class HibernateOrderDao implements HibernateOrderIntarface {
     }
 
     @Override
-    public HibernateOrder save(HibernateOrder entity) {
+    public HibOrder save(HibOrder entity) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.getTransaction();
             transaction.begin();
             Long newOrderID = (Long) session.save(entity);
             transaction.commit();
-            return session.find(HibernateOrder.class, newOrderID);
+            return session.find(HibOrder.class, newOrderID);
         }
     }
 
     @Override
-    public HibernateOrder update(HibernateOrder entity) {
+    public HibOrder update(HibOrder entity) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.getTransaction();
             transaction.begin();
             session.saveOrUpdate(entity);
             transaction.commit();
-            return session.find(HibernateOrder.class, entity.getId());
+            return session.find(HibOrder.class, entity.getId());
         }
     }
 }
