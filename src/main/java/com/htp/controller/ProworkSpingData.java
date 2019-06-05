@@ -10,33 +10,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/springdata/")
+@RequestMapping(value = "/rest/springdata/")
 public class ProworkSpingData {
 
 
     @Autowired
     private OrderSpringDataRepository orderSpringDataRepository;
 
-
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Page<HibernateOrder>> getOrderSpringData(@ApiIgnore Pageable pageable) {
+    @ResponseBody
+    public ResponseEntity<List<HibernateOrder>> getOrderSpringData() {
+        return new ResponseEntity<>(orderSpringDataRepository.getAllOrders(), HttpStatus.OK);
+    }
+
+    @GetMapping("/findAll")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Page<HibernateOrder>> getOrderfindAll(@ApiIgnore Pageable pageable) {
         return new ResponseEntity<>(orderSpringDataRepository.findAll(pageable), HttpStatus.OK);
+
     }
 
-    /*
-    @GetMapping("/all")
+    @GetMapping("/getOrderById/{orderID}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional getOrderSpringDataById(@PathVariable  Long orderID) {
-        final Optional optional = new Optional<>(orderSpringDataRepository.findById(orderID), HttpStatus.OK);
-        return optional;
+    public ResponseEntity<HibernateOrder> getOrderSpringDataById(@PathVariable  Long orderID) {
+        return new ResponseEntity<HibernateOrder>(orderSpringDataRepository.getOrderSpringDataById(orderID), HttpStatus.OK);
     }
 
-     */
 }
 
 
