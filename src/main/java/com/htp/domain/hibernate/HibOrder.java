@@ -74,14 +74,6 @@ public class HibOrder {
     public HibOrder() {
     }
 
-    public HibClient getHibClient() {
-        return hibClient;
-    }
-
-    public void setHibClient(HibClient hibClient) {
-        this.hibClient = hibClient;
-    }
-
     public HibOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet, HibClient hibClient) {
         this.type = type;
         this.description = description;
@@ -98,23 +90,6 @@ public class HibOrder {
         this.status = status;
         this.prioritet = prioritet;
         this.hibClient = hibClient;
-    }
-
-    public HibOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet) {
-        this.type = type;
-        this.description = description;
-        this.address = address;
-        this.latitude = latitude;
-        this.longtitude = longtitude;
-        this.idClient = idClient;
-        this.idWorker = idWorker;
-        this.countWorker = countWorker;
-        this.dateCreate = dateCreate;
-        this.dateFromOrder = dateFromOrder;
-        this.dateToOrder = dateToOrder;
-        this.idWorkerDateTo = idWorkerDateTo;
-        this.status = status;
-        this.prioritet = prioritet;
     }
 
     public Long getId() {
@@ -237,31 +212,40 @@ public class HibOrder {
         this.prioritet = prioritet;
     }
 
+    public HibClient getHibClient() {
+        return hibClient;
+    }
+
+    public void setHibClient(HibClient hibClient) {
+        this.hibClient = hibClient;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HibOrder that = (HibOrder) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(type, that.type) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(latitude, that.latitude) &&
-                Objects.equals(longtitude, that.longtitude) &&
-                Objects.equals(idClient, that.idClient) &&
-                Objects.equals(idWorker, that.idWorker) &&
-                Objects.equals(countWorker, that.countWorker) &&
-                Objects.equals(dateCreate, that.dateCreate) &&
-                Objects.equals(dateFromOrder, that.dateFromOrder) &&
-                Objects.equals(dateToOrder, that.dateToOrder) &&
-                Objects.equals(idWorkerDateTo, that.idWorkerDateTo) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(prioritet, that.prioritet);
+        HibOrder hibOrder = (HibOrder) o;
+        return Objects.equals(id, hibOrder.id) &&
+                Objects.equals(type, hibOrder.type) &&
+                Objects.equals(description, hibOrder.description) &&
+                Objects.equals(address, hibOrder.address) &&
+                Objects.equals(latitude, hibOrder.latitude) &&
+                Objects.equals(longtitude, hibOrder.longtitude) &&
+                Objects.equals(idClient, hibOrder.idClient) &&
+                Objects.equals(idWorker, hibOrder.idWorker) &&
+                Objects.equals(countWorker, hibOrder.countWorker) &&
+                Objects.equals(dateCreate, hibOrder.dateCreate) &&
+                Objects.equals(dateFromOrder, hibOrder.dateFromOrder) &&
+                Objects.equals(dateToOrder, hibOrder.dateToOrder) &&
+                Objects.equals(idWorkerDateTo, hibOrder.idWorkerDateTo) &&
+                Objects.equals(status, hibOrder.status) &&
+                Objects.equals(prioritet, hibOrder.prioritet) &&
+                Objects.equals(hibClient, hibOrder.hibClient);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, description, address, latitude, longtitude, idClient, idWorker, countWorker, dateCreate, dateFromOrder, dateToOrder, idWorkerDateTo, status, prioritet);
+        return Objects.hash(id, type, description, address, latitude, longtitude, idClient, idWorker, countWorker, dateCreate, dateFromOrder, dateToOrder, idWorkerDateTo, status, prioritet, hibClient);
     }
 
     @Override
@@ -282,6 +266,7 @@ public class HibOrder {
                 ", idWorkerDateTo=" + idWorkerDateTo +
                 ", status=" + status +
                 ", prioritet=" + prioritet +
+                ", hibClient=" + hibClient +
                 '}';
     }
 }
