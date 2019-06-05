@@ -1,7 +1,9 @@
 package com.htp.domain.hibernate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.htp.domain.Client;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -32,7 +34,7 @@ public class HibOrder {
     @Column(name = "longtitude")
     private Double longtitude;
 
-    @Column(name = "id_client")
+    @Column(name = "id_client", nullable=false, insertable=false, updatable=false)
     private Long idClient;
 
     @Column(name = "id_worker")
@@ -59,7 +61,43 @@ public class HibOrder {
     @Column(name = "prioritet")
     private Long prioritet;
 
+    /*
+    @ManyToOne
+    @JoinColumn(name="id_client", nullable=false)
+    private HibClient client;
+*/
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_client")
+    private HibClient  hibClient;
+
     public HibOrder() {
+    }
+
+    public HibClient getHibClient() {
+        return hibClient;
+    }
+
+    public void setHibClient(HibClient hibClient) {
+        this.hibClient = hibClient;
+    }
+
+    public HibOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet, HibClient hibClient) {
+        this.type = type;
+        this.description = description;
+        this.address = address;
+        this.latitude = latitude;
+        this.longtitude = longtitude;
+        this.idClient = idClient;
+        this.idWorker = idWorker;
+        this.countWorker = countWorker;
+        this.dateCreate = dateCreate;
+        this.dateFromOrder = dateFromOrder;
+        this.dateToOrder = dateToOrder;
+        this.idWorkerDateTo = idWorkerDateTo;
+        this.status = status;
+        this.prioritet = prioritet;
+        this.hibClient = hibClient;
     }
 
     public HibOrder(Long type, String description, String address, Double latitude, Double longtitude, Long idClient, Long idWorker, Long countWorker, Timestamp dateCreate, Timestamp dateFromOrder, Timestamp dateToOrder, Long idWorkerDateTo, Long status, Long prioritet) {

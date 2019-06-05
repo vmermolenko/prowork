@@ -1,6 +1,6 @@
 package com.htp.repository.hibernate;
 
-import com.htp.domain.hibernate.HibOrder;
+import com.htp.domain.hibernate.HibClient;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@Qualifier("hibernateOrderDao")
-public class HibernateOrderDao implements HibernateOrderIntarface {
+@Qualifier("hibernateClientDao")
+public class HClientDao implements HClientInterface {
 
     @Autowired
     @Qualifier("sessionFactory")
@@ -20,16 +20,16 @@ public class HibernateOrderDao implements HibernateOrderIntarface {
 
 
     @Override
-    public List<HibOrder> findAll() {
+    public List<HibClient> findAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("select tu from HibernateOrder tu", HibOrder.class).getResultList();
+            return session.createQuery("select tu from HibClient tu", HibClient.class).getResultList();
         }
     }
 
     @Override
-    public HibOrder findById(Long id) {
+    public HibClient findById(Long id) {
         try (Session session = sessionFactory.openSession()) {
-            return session.find(HibOrder.class, id);
+            return session.find(HibClient.class, id);
         }
     }
 
@@ -47,24 +47,24 @@ public class HibernateOrderDao implements HibernateOrderIntarface {
     }
 
     @Override
-    public HibOrder save(HibOrder entity) {
+    public HibClient save(HibClient entity) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.getTransaction();
             transaction.begin();
-            Long newOrderID = (Long) session.save(entity);
+            Long newID = (Long) session.save(entity);
             transaction.commit();
-            return session.find(HibOrder.class, newOrderID);
+            return session.find(HibClient.class, newID);
         }
     }
 
     @Override
-    public HibOrder update(HibOrder entity) {
+    public HibClient update(HibClient entity) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.getTransaction();
             transaction.begin();
             session.saveOrUpdate(entity);
             transaction.commit();
-            return session.find(HibOrder.class, entity.getId());
+            return session.find(HibClient.class, entity.getId());
         }
     }
 }

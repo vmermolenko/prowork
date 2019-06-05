@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/rest/order")
-public class JOrderController {
+public class JDBCOrderController {
     @Autowired
     @Qualifier("orderDaoImpl")
     private OrderDao orderDao;

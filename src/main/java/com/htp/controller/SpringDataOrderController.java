@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/rest/springdata/")
-public class SOrderController {
+public class SpringDataOrderController {
 
 
     @Autowired
