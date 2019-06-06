@@ -123,4 +123,15 @@ public class ClientDaoImpl implements ClientDao {
         namedParameterJdbcTemplate.update(createQuery, params);
         return findById(entity.getId());
     }
+
+    @Override
+    public Client findByName(String query) {
+        final String findById = "select * from prowork.client where lower(name) LIKE lower(:query)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("query", "%" + query + "%");
+
+
+        return namedParameterJdbcTemplate.queryForObject(findById, params, this::getRowMapper);
+    }
 }

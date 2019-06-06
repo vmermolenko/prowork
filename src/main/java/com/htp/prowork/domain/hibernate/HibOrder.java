@@ -2,6 +2,7 @@ package com.htp.prowork.domain.hibernate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -70,9 +71,9 @@ public class HibOrder {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_client", insertable = false, updatable = false)
 */
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name="id_client", nullable=false, insertable = false, updatable = false)
+    @JoinColumn(name="id_client", insertable = false, updatable = false)
     private HibClient  hibClient;
 
     public HibOrder() {
